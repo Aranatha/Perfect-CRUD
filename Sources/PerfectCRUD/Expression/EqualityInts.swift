@@ -71,6 +71,9 @@ public func == <A: Codable>(lhs: KeyPath<A, [UInt8]>, rhs: [UInt8]) -> CRUDBoole
 public func == <A: Codable>(lhs: KeyPath<A, [Int8]>, rhs: [Int8]) -> CRUDBooleanExpression {
 	return RealBooleanExpression(.equality(lhs: .keyPath(lhs), rhs: .sblob(rhs)))
 }
+public func == <A: Codable>(lhs: KeyPath<A, Data>, rhs: Data) -> CRUDBooleanExpression {
+	return RealBooleanExpression(.equality(lhs: .keyPath(lhs), rhs: .data(rhs)))
+}
 // == ?
 public func == <A: Codable>(lhs: KeyPath<A, Int?>, rhs: Int?) -> CRUDBooleanExpression {
 	if let rhs = rhs {
@@ -198,6 +201,12 @@ public func == <A: Codable>(lhs: KeyPath<A, [Int8]?>, rhs: [Int8]?) -> CRUDBoole
 	}
 	return RealBooleanExpression(.equality(lhs: .keyPath(lhs), rhs: .null))
 }
+public func == <A: Codable>(lhs: KeyPath<A, Data?>, rhs: Data?) -> CRUDBooleanExpression {
+	if let rhs = rhs {
+		return RealBooleanExpression(.equality(lhs: .keyPath(lhs), rhs: .data(rhs)))
+	}
+	return RealBooleanExpression(.equality(lhs: .keyPath(lhs), rhs: .null))
+}
 // !=
 public func != <A: Codable>(lhs: KeyPath<A, Int>, rhs: Int) -> CRUDBooleanExpression {
 	return RealBooleanExpression(.inequality(lhs: .keyPath(lhs), rhs: .integer(rhs)))
@@ -237,6 +246,9 @@ public func != <A: Codable>(lhs: KeyPath<A, [UInt8]>, rhs: [UInt8]) -> CRUDBoole
 }
 public func != <A: Codable>(lhs: KeyPath<A, [Int8]>, rhs: [Int8]) -> CRUDBooleanExpression {
 	return RealBooleanExpression(.inequality(lhs: .keyPath(lhs), rhs: .sblob(rhs)))
+}
+public func != <A: Codable>(lhs: KeyPath<A, Data>, rhs: Data) -> CRUDBooleanExpression {
+	return RealBooleanExpression(.inequality(lhs: .keyPath(lhs), rhs: .data(rhs)))
 }
 // != ?
 public func != <A: Codable>(lhs: KeyPath<A, Int?>, rhs: Int?) -> CRUDBooleanExpression {
@@ -362,6 +374,13 @@ public func != <A: Codable>(lhs: KeyPath<A, [UInt8]?>, rhs: [UInt8]?) -> CRUDBoo
 public func != <A: Codable>(lhs: KeyPath<A, [Int8]?>, rhs: [Int8]?) -> CRUDBooleanExpression {
 	if let rhs = rhs {
 		return RealBooleanExpression(.inequality(lhs: .keyPath(lhs), rhs: .sblob(rhs)))
+	}
+	return RealBooleanExpression(.inequality(lhs: .keyPath(lhs), rhs: .null))
+}
+
+public func != <A: Codable>(lhs: KeyPath<A, Data?>, rhs: Data?) -> CRUDBooleanExpression {
+	if let rhs = rhs {
+		return RealBooleanExpression(.inequality(lhs: .keyPath(lhs), rhs: .data(rhs)))
 	}
 	return RealBooleanExpression(.inequality(lhs: .keyPath(lhs), rhs: .null))
 }
