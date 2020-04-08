@@ -68,6 +68,12 @@ public func ~ <A: Codable>(lhs: KeyPath<A, UInt8>, rhs: [UInt8]) -> CRUDBooleanE
 public func ~ <A: Codable>(lhs: KeyPath<A, UInt8?>, rhs: [UInt8]) -> CRUDBooleanExpression {
 	return RealBooleanExpression(.in(lhs: .keyPath(lhs), rhs: rhs.map { .uinteger8($0) }))
 }
+public func ~ <A: Codable>(lhs: KeyPath<A, Data>, rhs: [Data]) -> CRUDBooleanExpression {
+	return RealBooleanExpression(.in(lhs: .keyPath(lhs), rhs: rhs.map { .data($0) }))
+}
+public func ~ <A: Codable>(lhs: KeyPath<A, Data?>, rhs: [Data]) -> CRUDBooleanExpression {
+	return RealBooleanExpression(.in(lhs: .keyPath(lhs), rhs: rhs.map { .data($0) }))
+}
 // !~ NOT IN
 public func !~ <A: Codable>(lhs: KeyPath<A, Int>, rhs: [Int]) -> CRUDBooleanExpression {
 	return !(lhs ~ rhs)
@@ -127,5 +133,11 @@ public func !~ <A: Codable>(lhs: KeyPath<A, UInt8>, rhs: [UInt8]) -> CRUDBoolean
 	return !(lhs ~ rhs)
 }
 public func !~ <A: Codable>(lhs: KeyPath<A, UInt8?>, rhs: [UInt8]) -> CRUDBooleanExpression {
+	return !(lhs ~ rhs)
+}
+public func !~ <A: Codable>(lhs: KeyPath<A, Data>, rhs: [Data]) -> CRUDBooleanExpression {
+	return !(lhs ~ rhs)
+}
+public func !~ <A: Codable>(lhs: KeyPath<A, Data?>, rhs: [Data]) -> CRUDBooleanExpression {
 	return !(lhs ~ rhs)
 }
